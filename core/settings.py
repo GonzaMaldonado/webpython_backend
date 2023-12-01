@@ -13,6 +13,9 @@ DEBUG = os.environ.get('DEBUG')
 
 ALLOWED_HOSTS = []
 
+CORS_ALLOWED_ORIGINS = [
+    "*" # De momento accesible para todos
+]
 
 # Application definition
 INSTALLED_APPS = [
@@ -23,6 +26,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Apps de terceros
+    'corsheaders',
     'rest_framework',
     'rest_framework_simplejwt',
     # Mis apps
@@ -34,6 +38,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware', # middleware para corsheaders
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -100,9 +105,9 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [
-  os.path.join(BASE_DIR, 'static/')
-]
+#STATICFILES_DIRS = [
+#  os.path.join(BASE_DIR, 'static/')
+#]
 
 MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
