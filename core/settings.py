@@ -14,7 +14,7 @@ DEBUG = os.environ.get('DEBUG')
 ALLOWED_HOSTS = []
 
 CORS_ALLOWED_ORIGINS = [
-    "*" # De momento accesible para todos
+  "http://127.0.0.1:3000"
 ]
 
 # Application definition
