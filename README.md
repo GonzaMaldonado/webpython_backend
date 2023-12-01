@@ -17,7 +17,7 @@ Requerimientos
 -----------
 
 * Python: "3.11.2 o >"
-* Pip: ""
+* Pip: "23.3.1 o >"
 
 
 Empezando
@@ -26,7 +26,7 @@ Empezando
 - clonar el repositorio
 
     ```bash
-    git clone https://github.com/GonzaMaldonado/webpython_back.git
+    git clone https://github.com/GonzaMaldonado/webpython_backend.git
     ```
 
 - crear un entorno virtual (en este caso lo hago con virtualenv)
@@ -35,7 +35,7 @@ Empezando
     virtualenv -p C:\Users\AppData\Local\Programs\Python\Python311\python.exe venv
     ```
 
-- activar entorno virtual
+- activar entorno virtual (con Windows)
 
     ```bash
     venv\Scripts\activate
@@ -66,6 +66,7 @@ Empezando
 ### Variables de entorno
 ```
 SECRET_KEY="secret_key_django"
+DEBUG=bool
 ```
 
 
