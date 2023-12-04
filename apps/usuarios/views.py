@@ -1,6 +1,6 @@
 from rest_framework import viewsets, views, status
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.permissions import IsAuthenticated
 
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -14,10 +14,9 @@ class Login(TokenObtainPairView):
 
 
 class Register(views.APIView):
-  serializer_class = RegisterSerializer
 
   def post(self, request, *args, **kwargs):
-    user_serializer = self.serializer_class(data=request.data)
+    user_serializer = RegisterSerializer(data=request.data)
 
     if user_serializer.is_valid():
       user_serializer.save()
@@ -25,9 +24,7 @@ class Register(views.APIView):
       if login.is_valid():
         return Response({
           'access': login.validated_data.get('access'),
-          'refresh': login.validated_data.get('refresh'),
-          'user': user_serializer.data,
-          'message': 'Usuario creado correctamente'
+          'refresh': login.validated_data.get('refresh')
         }, status=status.HTTP_201_CREATED)
       
     return Response({'message': 'Existen errores en el registro', 'error': user_serializer.errors
@@ -48,7 +45,7 @@ class Logout(views.APIView):
 
 
 class UserViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsAuthenticated, IsAdminUser]
+    permission_classes = [IsAuthenticated]
     queryset = User.objects.filter(is_active=True)
     serializer_class = UserSerializer
 

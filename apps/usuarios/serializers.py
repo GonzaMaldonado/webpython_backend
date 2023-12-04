@@ -31,17 +31,21 @@ class RegisterSerializer(serializers.ModelSerializer):
   class Meta:
     model = User
     fields = '__all__'
-    extra_kwargs = {'password': {'write_only': True}}
+    extra_kwargs = {
+       'password': {'write_only': True}
+    }
 
-  def validate(self, attrs):
-    password = attrs.get('password')
-    confirm_password = attrs.get('confirm_password')
 
-    if password != confirm_password:
-      return serializers.ValidationError('Las contraseñas deben ser iguales')
-    
-    attrs.pop('confirm_password', None)
-    return attrs
+  def validate(self, data):
+        password = data.get('password')
+        confirm_password = data.get('confirm_password')
+
+        if password != confirm_password:
+                raise serializers.ValidationError('Las contraseñas deben ser iguales')
+        
+        data.pop('confirm_password', None)
+        return data
+
   
   def create(self, validated_data):
     user = User(**validated_data)

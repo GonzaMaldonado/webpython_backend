@@ -7,6 +7,6 @@ router.register(r'muebles', MuebleViewSet, basename='muebles')
 
 urlpatterns = [
   path('all_muebles/', MueblesListView.as_view()),
-  path('mueble/<int:pk>/', MuebleDetailView.as_view()),
+  path('mueble/<str:pk>/', MuebleDetailView.as_view()),
   path('', include(router.urls)),
 ]
