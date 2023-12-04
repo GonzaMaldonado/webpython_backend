@@ -48,9 +48,3 @@ class UserViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     queryset = User.objects.filter(is_active=True)
     serializer_class = UserSerializer
-
-    def destroy(self, request, pk=None):
-        user = User.objects.filter(id=pk).update(is_active=False)
-        if user == 1:
-            return Response({'message': 'Usuario eliminado correctamente'}, status=status.HTTP_204_NO_CONTENT)
-        return Response({'error': 'Usuario no encontrado'}, status=status.HTTP_404_NOT_FOUND)

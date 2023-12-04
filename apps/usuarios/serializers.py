@@ -8,7 +8,6 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
   def get_token(cls, user):
     token = super().get_token(user)
 
-    token['username'] = user.username
     token['is_staff'] = user.is_staff
     if user.photo != '':
       token['photo'] = user.photo.url
@@ -21,7 +20,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 class UserSerializer(serializers.ModelSerializer):
   class Meta:
     model = User
-    fields = '__all__'
+    fields = ['id', 'first_name', 'last_name', 'username', 'email', 'photo']
     read_only_field = ('id',)
 
 
@@ -37,14 +36,14 @@ class RegisterSerializer(serializers.ModelSerializer):
 
 
   def validate(self, data):
-        password = data.get('password')
-        confirm_password = data.get('confirm_password')
+    password = data.get('password')
+    confirm_password = data.get('confirm_password')
 
-        if password != confirm_password:
-                raise serializers.ValidationError('Las contraseñas deben ser iguales')
+    if password != confirm_password:
+      raise serializers.ValidationError('Las contraseñas deben ser iguales')
         
-        data.pop('confirm_password', None)
-        return data
+    data.pop('confirm_password', None)
+    return data
 
   
   def create(self, validated_data):
