@@ -12,6 +12,4 @@ class User(AbstractUser, PermissionsMixin):
   USERNAME_FIELD = 'username'
 
   def __str__(self):
-    if self.first_name == '' and self.last_name == '':
-      return f'{self.username}'
-    return f'{self.first_name} {self.last_name}'
+    return f'{self.username}'

@@ -48,3 +48,14 @@ class UserViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     queryset = User.objects.filter(is_active=True)
     serializer_class = UserSerializer
+
+    def partial_update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.serializer_class(instance, data=request.data)
+
+        if serializer.is_valid():
+           serializer.save()
+           return Response(serializer.data, status=status.HTTP_200_OK)
+        
+        return Response({'detail': 'No se pudo actualizar usuario', 'error': serializer.errors},
+                         status=status.HTTP_400_BAD_REQUEST)
